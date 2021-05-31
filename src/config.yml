@@ -1,0 +1,17 @@
+#minimum_angle: -45
+#commands:
+#  help:
+#    permission: "skycommand.help"
+#    command: "help"
+#    run_as_op: false
+#  op:
+#    permission: "skycommand.op"
+#    command: "op {player}"
+#    run_as_op: false
+
+minimum_angle: -45
+commands:
+  help:
+    permission: "skycommand.help"
+    command: "help"
+    run_as_op: false
