@@ -21,4 +21,8 @@ commands:
     # whether the command should be run by the player or via console
     # OPTIONAL
     run_as_op: false
+  msg:
+    permission: "skycommand.msg"
+    command: "msg {player} yo"
+    run_as_op: true
    ```
