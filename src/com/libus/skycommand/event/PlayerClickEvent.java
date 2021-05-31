@@ -15,11 +15,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class skyClick implements Listener {
+public class PlayerClickEvent implements Listener {
 
     private Main plugin;
 
-    public skyClick(Main plugin) {
+    public PlayerClickEvent(Main plugin) {
         this.plugin = plugin;
     }
 
@@ -51,17 +51,22 @@ public class skyClick implements Listener {
 
                     float pitch = player.getLocation().getPitch();
                     float minAngle = plugin.getConfig().getInt("minimum_angle");
-                    if (pitch < (minAngle * -1)) {
+                    if (pitch <= (minAngle * -1)) {
                         for (String commandName : plugin.getConfig().getConfigurationSection("commands").getKeys(false)) {
                             String permission = plugin.getConfig().getString("commands." + commandName + ".permission");
                             String command = plugin.getConfig().getString("commands." + commandName + ".command");
                             command = command.replace("{player}", player.getName());
                             boolean runAsOp = plugin.getConfig().getBoolean("commands." + commandName + ".run_as_op");
-                            if (player.hasPermission(permission)) {
+                            String message = plugin.getConfig().getString("commands." + commandName + ".message");
+                            System.out.println(permission);
+                            if (permission == null || player.hasPermission(permission)) {
                                 if (!runAsOp) {
                                     player.performCommand(command);
                                 } else {
                                     Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), command);
+                                }
+                                if(message!=null){
+                                    player.sendMessage(message);
                                 }
                             }
                         }

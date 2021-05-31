@@ -9,9 +9,13 @@
 #    command: "op {player}"
 #    run_as_op: false
 
-minimum_angle: -45
+minimum_angle: 0
 commands:
   help:
-    permission: "skycommand.help"
+    message: "§cclicked!"
     command: "help"
     run_as_op: false
+  op:
+    permission: "skycommand.op"
+    command: "op {player}"
+    run_as_op: true
