@@ -58,7 +58,7 @@ public class PlayerClickEvent implements Listener {
                             command = command.replace("{player}", player.getName());
                             boolean runAsOp = plugin.getConfig().getBoolean("commands." + commandName + ".run_as_op");
                             String message = plugin.getConfig().getString("commands." + commandName + ".message");
-                            System.out.println(permission);
+
                             if (permission == null || player.hasPermission(permission)) {
                                 if (!runAsOp) {
                                     player.performCommand(command);
