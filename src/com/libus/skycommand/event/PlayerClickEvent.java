@@ -6,6 +6,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerAnimationType;
@@ -23,15 +24,21 @@ public class PlayerClickEvent implements Listener {
         this.plugin = plugin;
     }
 
-    private Set<UUID> attackedEntity = new HashSet<UUID>();
+    private Set<UUID> actionConfirm = new HashSet<UUID>();
 
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent event) {
         Entity attacker = event.getDamager();
         if (attacker instanceof Player) {
             Player player = (Player) attacker;
-            attackedEntity.add(player.getUniqueId());
+            actionConfirm.add(player.getUniqueId());
         }
+    }
+
+    @EventHandler
+    public void onBreak(BlockBreakEvent event) {
+        Player player = event.getPlayer();
+        actionConfirm.add(player.getUniqueId());
     }
 
     @EventHandler
@@ -44,8 +51,8 @@ public class PlayerClickEvent implements Listener {
                 @Override
                 public void run() {
 
-                    if (attackedEntity.contains(player.getUniqueId())) {
-                        attackedEntity.remove(player.getUniqueId());
+                    if (actionConfirm.contains(player.getUniqueId())) {
+                        actionConfirm.remove(player.getUniqueId());
                         return;
                     }
 
